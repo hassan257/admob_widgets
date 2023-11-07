@@ -6,31 +6,35 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 /// Class that initialize the admob's ids which are necessary to launch the publicity
 /// [androidBannerAdUnitId] Banner unity id for android
 /// [androidInterstitialAdUnitId] Interstitial unity id for android
-class AdMobWidgets{
+class AdMobWidgets {
   final String? androidBannerAdUnitId;
   final String? androidInterstitialAdUnitId;
 
-  AdMobWidgets._({this.androidBannerAdUnitId, this.androidInterstitialAdUnitId});
+  AdMobWidgets._(
+      {this.androidBannerAdUnitId, this.androidInterstitialAdUnitId});
 
   static AdMobWidgets? _instance;
 
-  static instance({String? androidBannerAdUnitId, String? androidInterstitialAdUnitId}){
-    _instance ??= AdMobWidgets._(androidBannerAdUnitId: androidBannerAdUnitId, androidInterstitialAdUnitId: androidInterstitialAdUnitId);
+  static instance(
+      {String? androidBannerAdUnitId, String? androidInterstitialAdUnitId}) {
+    _instance ??= AdMobWidgets._(
+        androidBannerAdUnitId: androidBannerAdUnitId,
+        androidInterstitialAdUnitId: androidInterstitialAdUnitId);
     return _instance;
   }
 
-  String get bannerAdUnit{
-    if(Platform.isAndroid && androidBannerAdUnitId != null){
+  String get bannerAdUnit {
+    if (Platform.isAndroid && androidBannerAdUnitId != null) {
       return androidBannerAdUnitId!;
-    }else{
+    } else {
       throw UnsupportedError("Unsupported platform");
     }
   }
 
-  String get intersticialAdUnit{
-    if(Platform.isAndroid && androidInterstitialAdUnitId != null){
+  String get intersticialAdUnit {
+    if (Platform.isAndroid && androidInterstitialAdUnitId != null) {
       return androidInterstitialAdUnitId!;
-    }else{
+    } else {
       throw UnsupportedError("Unsupported platform");
     }
   }
@@ -45,11 +49,9 @@ class BannerInlineWidget extends StatefulWidget {
 }
 
 class _BannerInlineWidgetState extends State<BannerInlineWidget> {
-
   late BannerAd _ad;
 
   bool _isAdLoaded = false;
-
 
   @override
   void initState() {
@@ -110,11 +112,9 @@ class _BannerInlineWidgetState extends State<BannerInlineWidget> {
   }
 }
 
-
 /// Widget that agroup the banner in a container
 class BannerWidget extends StatelessWidget {
   const BannerWidget({Key? key}) : super(key: key);
-
 
   @override
   Widget build(BuildContext context) {
@@ -128,46 +128,46 @@ class BannerWidget extends StatelessWidget {
 }
 
 /// Class to use the interstitial
-class InterstitialUnit{
+class InterstitialUnit {
   InterstitialAd? _interstitialAd;
 
   InterstitialUnit();
 
   InterstitialAd? get interstitialAd => _interstitialAd;
+
   /// Metodo que carga el intersticial
   void loadAd() {
     AdMobWidgets adMobWidgets = AdMobWidgets.instance();
     InterstitialAd.load(
-      adUnitId: adMobWidgets.intersticialAdUnit,
-      request: const AdRequest(),
-      adLoadCallback: InterstitialAdLoadCallback(
-        // Called when an ad is successfully received.
-        onAdLoaded: (InterstitialAd ad) {
-          ad.fullScreenContentCallback = FullScreenContentCallback(
-              // Called when the ad showed the full screen content.
-              onAdShowedFullScreenContent: (ad) {},
-              // Called when an impression occurs on the ad.
-              onAdImpression: (ad) {},
-              // Called when the ad failed to show full screen content.
-              onAdFailedToShowFullScreenContent: (ad, err) {
-                ad.dispose();
-              },
-              // Called when the ad dismissed full screen content.
-              onAdDismissedFullScreenContent: (ad) {
-                ad.dispose();
-              },
-              // Called when a click is recorded for an ad.
-              onAdClicked: (ad) {});
+        adUnitId: adMobWidgets.intersticialAdUnit,
+        request: const AdRequest(),
+        adLoadCallback: InterstitialAdLoadCallback(
+          // Called when an ad is successfully received.
+          onAdLoaded: (InterstitialAd ad) {
+            ad.fullScreenContentCallback = FullScreenContentCallback(
+                // Called when the ad showed the full screen content.
+                onAdShowedFullScreenContent: (ad) {},
+                // Called when an impression occurs on the ad.
+                onAdImpression: (ad) {},
+                // Called when the ad failed to show full screen content.
+                onAdFailedToShowFullScreenContent: (ad, err) {
+                  ad.dispose();
+                },
+                // Called when the ad dismissed full screen content.
+                onAdDismissedFullScreenContent: (ad) {
+                  ad.dispose();
+                },
+                // Called when a click is recorded for an ad.
+                onAdClicked: (ad) {});
 
-          // Keep a reference to the ad so you can show it later.
-          _interstitialAd = ad;
-        },
-        // Called when an ad request failed.
-        onAdFailedToLoad: (LoadAdError error) {
-          // ignore: avoid_print
-          print('InterstitialAd failed to load: $error');
-        },
-      )
-    );
+            // Keep a reference to the ad so you can show it later.
+            _interstitialAd = ad;
+          },
+          // Called when an ad request failed.
+          onAdFailedToLoad: (LoadAdError error) {
+            // ignore: avoid_print
+            print('InterstitialAd failed to load: $error');
+          },
+        ));
   }
 }

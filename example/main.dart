@@ -2,13 +2,12 @@ import 'package:admob_widgets/admob_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
-void main() async{
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   AdMobWidgets.instance(
-    // test's id
-    androidBannerAdUnitId: "ca-app-pub-3940256099942544/6300978111", 
-    androidInterstitialAdUnitId: "ca-app-pub-3940256099942544/1033173712"
-  );
+      // test's id
+      androidBannerAdUnitId: "ca-app-pub-3940256099942544/6300978111",
+      androidInterstitialAdUnitId: "ca-app-pub-3940256099942544/1033173712");
   await MobileAds.instance.initialize();
   runApp(const MyApp());
 }
@@ -28,6 +27,7 @@ class _MyAppState extends State<MyApp> {
     interstitialUnit.loadAd();
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -35,11 +35,12 @@ class _MyAppState extends State<MyApp> {
       home: Scaffold(
         body: Column(
           children: [
-            Expanded(child: Center(
+            Expanded(
+                child: Center(
               child: MaterialButton(
                 onPressed: () {
                   _interstitialAd = interstitialUnit.interstitialAd;
-                  if(_interstitialAd != null){
+                  if (_interstitialAd != null) {
                     _interstitialAd!.show();
                     interstitialUnit.loadAd();
                   }
