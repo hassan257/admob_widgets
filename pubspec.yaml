@@ -1,7 +1,7 @@
 name: admob_widgets
 description: A flutter package that provide widgets to apply easily admob unities.
-version: 1.0.3
-homepage: https://hassansystems.com
+version: 1.0.4
+homepage: https://cuudevs.com
 
 environment:
   sdk: '>=3.1.3 <4.0.0'
