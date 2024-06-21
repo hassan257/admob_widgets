@@ -1,3 +1,5 @@
+## 1.2.0
+* Updated the version of google_mobile_ads to 5.1.0
 ## 1.1.0
 * Updated the version of google_mobile_ads to 5.0.0
 ## 1.0.4
